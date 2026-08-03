@@ -1,4 +1,3 @@
-```dockerfile
 FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -35,4 +34,3 @@ ENV USER=root
 # <-- Isko apna strong password change karein
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-```
