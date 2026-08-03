@@ -1,0 +1,22 @@
+app = "your-app-name"        # <-- Isko kuch unique name badle (e.g. my-ide-123)
+primary_region = "fra"       # Europe region (free tier)
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PASSWORD = "admin123"      # <-- Isko apna strong password badle
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
+  [[services.ports]]
+    handlers = ["http"]
+    port = 80
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+[[mounts]]
+  source = "code_volume"
+  destination = "/workspace"   # Yahi par aapki files store hongi
