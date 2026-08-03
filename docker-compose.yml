@@ -1,0 +1,96 @@
+```yaml
+version: '3'
+services:
+  code-editor:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PASSWORD=admin123
+    volumes:
+      - ./workspace:/workspace
+```
+
+---
+
+G) .github/workflows/deploy.yml (Auto Deploy on Git Push)
+
+```yaml
+name: Deploy to Fly.io
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+```
+
+---
+
+H) README.md (Step-by-step Hinglish Instructions)
+
+```markdown
+# My Cloud IDE (Replit Clone)
+
+## 🚀 Deploy karne ke steps:
+
+1. **GitHub Repository** banayein (public/private) aur yeh saari files usme push karein.
+
+2. **Fly.io** par account banayein (free) aur `FLY_API_TOKEN` generate karein.
+   - Fly.io CLI install karein: `flyctl auth login`
+
+3. **GitHub Secrets** mein `FLY_API_TOKEN` daalein (Repo → Settings → Secrets and variables → Actions).
+
+4. **Local terminal** mein (ya GitHub Action se):
+   ```bash
+   flyctl apps create your-app-name   # same naam jo fly.toml mein likha
+   flyctl volumes create code_volume --size 1 --region fra
+```
+
+5. Push karein GitHub par – Action automatically deploy kar dega.
+6. Live URL: https://your-app-name.fly.dev – open karein, password daalein, aur VS Code + terminal use karein!
+
+🛠 Local Test (optional)
+
+docker-compose up karein aur http://localhost:8080 par check karein.
+
+```
+
+---
+
+## 🔥 3. Deployment Commands (Terminal mein run karein)
+
+**Pehli baar deploy kar rahe hain toh yeh steps follow karein:**
+
+```bash
+# 1. Fly.io CLI install karein (https://fly.io/docs/hands-on/install-flyctl/)
+# 2. Login karein
+flyctl auth login
+
+# 3. App register karein (naam unique rakhein)
+flyctl apps create my-ide-123   # <-- apna naam
+
+# 4. Persistent volume banayein (1GB free)
+flyctl volumes create code_volume --size 1 --region fra
+
+# 5. GitHub repo banayein aur push karein
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/your-username/your-repo.git
+git branch -M main
+git push -u origin main
+
+# 6. GitHub Action automatic deploy karega. 
+# Ya agar manual deploy karna hai toh:
+flyctl deploy
+```
+
+---
