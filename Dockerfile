@@ -30,8 +30,9 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 8080
 
-ENV PASSWORD="admin123"   # <-- Isko apna strong password change karein
+ENV PASSWORD="admin123"   
 ENV USER=root
+# <-- Isko apna strong password change karein
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 ```
