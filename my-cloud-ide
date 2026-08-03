@@ -1,0 +1,14 @@
+```
+my-cloud-ide/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── landing/
+│   └── index.html
+├── Caddyfile
+├── Dockerfile
+├── docker-compose.yml
+├── fly.toml
+├── supervisord.conf
+└── README.md
+```
