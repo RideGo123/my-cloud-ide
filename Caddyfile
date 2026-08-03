@@ -1,0 +1,13 @@
+:8080 {
+    root * /app/landing
+    file_server {
+        index index.html
+    }
+    handle_path /coder/* {
+        reverse_proxy localhost:8443 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-Prefix /coder
+        }
+    }
+}
